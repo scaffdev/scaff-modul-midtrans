@@ -1,0 +1,22 @@
+{
+  "kode": "midtrans",
+  "version": "1.0.0",
+  "frameworks": ["nextjs"],
+  "files": [
+    { "src": "lib/payments/midtrans.ts", "dest": "lib/payments/midtrans.ts" },
+    { "src": "app/api/payments/midtrans/route.ts", "dest": "app/api/payments/midtrans/route.ts" },
+    { "src": "app/api/payments/midtrans/webhook/route.ts", "dest": "app/api/payments/midtrans/webhook/route.ts" }
+  ],
+  "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
+  "setup": "SETUP-FRAGMENT.md",
+  "removal": {
+    "files": [
+      "lib/payments/midtrans.ts",
+      "app/api/payments/midtrans/route.ts",
+      "app/api/payments/midtrans/webhook/route.ts"
+    ],
+    "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
+    "stepsFile": "REMOVE.md"
+  },
+  "conflicts": ["xendit", "duitku"]
+}

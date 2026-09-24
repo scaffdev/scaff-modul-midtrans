@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build output
+.next/
+out/
+dist/
+
+# Env (JANGAN PERNAH commit key asli)
+.env
+.env.local
+.env*.local
+
+# Scaffdev CLI working dirs
+.scaff/
+.scaff-validate-*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
