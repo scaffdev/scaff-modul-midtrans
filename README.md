@@ -6,7 +6,7 @@ Disuntik via `scaff ... --with=midtrans` (CLI 0.2.0+).
 | Framework | Status | Isi |
 |---|---|---|
 | Next.js | ✅ v1.0.0 | Snap client + route buat transaksi + route webhook terverifikasi |
-| Laravel | 🟡 STAGED (v1.1.0) | Service + Controller sudah ditulis, belum disuntik CLI |
+| Laravel | ✅ v1.0.0 | Service + Controller (SDK midtrans-php) |
 
 ## Struktur
 
@@ -18,7 +18,7 @@ scaff-modul-midtrans/
 ├── nextjs/                  ← sumber untuk base Next.js
 │   ├── lib/payments/midtrans.ts
 │   └── app/api/payments/midtrans/{route.ts,webhook/route.ts}
-└── laravel/                 ← STAGED untuk v1.1.0
+└── laravel/                 ← sumber untuk base Laravel
     ├── app/Services/MidtransService.php
     └── app/Http/Controllers/MidtransController.php
 ```

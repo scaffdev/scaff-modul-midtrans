@@ -43,3 +43,51 @@ NOTED: `MIDTRANS_CLIENT_KEY` aman untuk browser (dipakai Snap.js).
 2. Daftarkan `https://domainmu/api/payments/midtrans/webhook` di
    Dashboard → **Settings → Configuration → Payment Notification URL**.
 3. Test: lakukan pembayaran sandbox → cek respons `{"ok":true,"paid":true}` di log server.
+
+---
+
+## Setup Laravel (base Laravel)
+
+> CLI menyuntik Service + Controller; 4 langkah manual di bawah wajib
+> (env, config, route, dependency) karena tidak bisa di-generate otomatis.
+
+### L1. Install SDK + isi `.env`
+
+```bash
+composer require midtrans/midtrans-php
+```
+
+```bash
+MIDTRANS_SERVER_KEY=SB-Mid-server-xxxx   # rahasia! hanya di server
+MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxx
+# MIDTRANS_IS_PRODUCTION=true            # hanya saat Go Live
+```
+
+### L2. Tambah ke `config/services.php`
+
+```php
+'midtrans' => [
+    'server_key' => env('MIDTRANS_SERVER_KEY'),
+    'client_key' => env('MIDTRANS_CLIENT_KEY'),
+],
+```
+
+### L3. Daftarkan route (mis. di `routes/api.php`)
+
+```php
+use App\Http\Controllers\MidtransController;
+
+Route::post('/api/payments/midtrans', [MidtransController::class, 'create']);
+Route::post('/api/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
+```
+
+### L4. Bersihkan config + coba
+
+```bash
+php artisan config:clear
+```
+
+`POST /api/payments/midtrans` dengan `{"orderId":"order-1","amount":15000}`
+→ pakai `token` via Snap.js (lihat langkah 3 Next.js di atas untuk
+perbedaan URL sandbox vs production). Webhook: daftarkan URL publik
++ pastikan signature terverifikasi (lihat langkah 4 Next.js).

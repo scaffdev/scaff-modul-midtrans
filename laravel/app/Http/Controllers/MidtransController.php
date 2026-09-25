@@ -7,10 +7,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * Controller Midtrans — STAGED untuk dukungan Laravel (aktif di v1.1.0).
+ * Controller Midtrans — disuntik Scaffdev Builder ke template Laravel.
  *
  * NOTED:
- * - Daftarkan route manual saat v1.1.0 rilis:
+ * - Daftarkan route manual (mis. di routes/api.php):
  *     Route::post('/api/payments/midtrans', [MidtransController::class, 'create']);
  *     Route::post('/api/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
  * - Webhook WAJIB URL publik + verifikasi signature (lihat method webhook).

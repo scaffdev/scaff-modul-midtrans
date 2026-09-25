@@ -58,6 +58,46 @@ grep -ri "midtrans" app lib components
 
 ## B. Template Laravel
 
-Modul ini v1.0.0 mendukung Next.js saja. File `laravel/` berstatus STAGED
-(belum disuntik CLI) sehingga tidak ada yang perlu dicopot.
-Berlaku mulai v1.1.0 — panduan section B akan ditambahkan saat itu.
+### B.1. Hapus file (aman — tidak dipakai kode lain)
+
+- `app/Services/MidtransService.php` — client & config Snap Midtrans.
+- `app/Http/Controllers/MidtransController.php` — buat transaksi + terima webhook.
+
+```bash
+rm "app/Services/MidtransService.php" "app/Http/Controllers/MidtransController.php"
+```
+
+### B.2. Hapus env (dari `.env`)
+
+- `MIDTRANS_SERVER_KEY`
+- `MIDTRANS_CLIENT_KEY`
+- `MIDTRANS_IS_PRODUCTION` (bila ada)
+
+Hapus barisnya, jangan dikosongkan saja.
+
+### B.3. Bersihkan dependency
+
+```bash
+composer remove midtrans/midtrans-php
+```
+
+### B.4. Verifikasi (wajib lolos semua)
+
+```bash
+composer install --no-dev
+php artisan config:clear
+```
+
+```bash
+grep -ri "midtrans" app routes resources config
+```
+
+- Install harus sukses tanpa error.
+- Grep harus menghasilkan **0 baris**. Bila masih ada sisa (mis. route di
+  `routes/api.php`), hapus route + pemakaiannya, lalu verifikasi ulang.
+- Hapus juga blok `midtrans` di `config/services.php` bila kamu menambahkannya.
+
+### B.5. Yang JANGAN dihapus (Laravel)
+
+- `config/services.php` itu sendiri (cukup hapus blok `midtrans`-nya).
+- Route/form checkout umum, `composer.json`, `.env` (cukup hapus baris env-nya).

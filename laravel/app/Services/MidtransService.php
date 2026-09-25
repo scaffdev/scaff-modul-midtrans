@@ -3,11 +3,10 @@
 namespace App\Services;
 
 /**
- * Service Midtrans Snap — STAGED untuk dukungan Laravel (aktif di v1.1.0).
+ * Service Midtrans Snap — disuntik Scaffdev Builder ke template Laravel.
  *
  * NOTED:
- * - File ini BELUM disuntik CLI (manifest v1.0.0 frameworks: ["nextjs"]).
- *   Jangan daftarkan path ini ke manifest sebelum v1.1.0.
+ * - File ini 100% milik modul "midtrans" (lihat scaff.integration.json).
  * - Memakai SDK resmi midtrans/midtrans-php (best practice vs curl manual):
  *   Config::$serverKey, Snap::getSnapToken, Notification.
  *   Ref: https://github.com/Midtrans/midtrans-php
@@ -51,7 +50,13 @@ class MidtransService
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        return ['token' => $snapToken, 'redirect_url' => "https://app.midtrans.com/snap/v2/vtweb/{$snapToken}"];
+        // NOTED: host vtweb mengikuti mode — token sandbox TIDAK jalan
+        // di host production (dan sebaliknya).
+        $host = \Midtrans\Config::$isProduction
+            ? 'https://app.midtrans.com'
+            : 'https://app.sandbox.midtrans.com';
+
+        return ['token' => $snapToken, 'redirect_url' => "{$host}/snap/v2/vtweb/{$snapToken}"];
     }
 
     /**

@@ -1,19 +1,26 @@
 {
   "kode": "midtrans",
   "version": "1.0.0",
-  "frameworks": ["nextjs"],
+  "frameworks": ["nextjs", "laravel"],
   "files": [
-    { "src": "lib/payments/midtrans.ts", "dest": "lib/payments/midtrans.ts" },
-    { "src": "app/api/payments/midtrans/route.ts", "dest": "app/api/payments/midtrans/route.ts" },
-    { "src": "app/api/payments/midtrans/webhook/route.ts", "dest": "app/api/payments/midtrans/webhook/route.ts" }
+    { "src": "lib/payments/midtrans.ts", "dest": "lib/payments/midtrans.ts", "frameworks": ["nextjs"] },
+    { "src": "app/api/payments/midtrans/route.ts", "dest": "app/api/payments/midtrans/route.ts", "frameworks": ["nextjs"] },
+    { "src": "app/api/payments/midtrans/webhook/route.ts", "dest": "app/api/payments/midtrans/webhook/route.ts", "frameworks": ["nextjs"] },
+    { "src": "app/Services/MidtransService.php", "dest": "app/Services/MidtransService.php", "frameworks": ["laravel"] },
+    { "src": "app/Http/Controllers/MidtransController.php", "dest": "app/Http/Controllers/MidtransController.php", "frameworks": ["laravel"] }
   ],
+  "dependencies": {
+    "composer": { "midtrans/midtrans-php": "^2.0" }
+  },
   "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
   "setup": "SETUP-FRAGMENT.md",
   "removal": {
     "files": [
       "lib/payments/midtrans.ts",
       "app/api/payments/midtrans/route.ts",
-      "app/api/payments/midtrans/webhook/route.ts"
+      "app/api/payments/midtrans/webhook/route.ts",
+      "app/Services/MidtransService.php",
+      "app/Http/Controllers/MidtransController.php"
     ],
     "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
     "stepsFile": "REMOVE.md"
