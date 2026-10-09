@@ -3,7 +3,7 @@ import {
   verifyWebhookSignature,
   isPaidStatus,
   type MidtransNotification,
-} from "../../../../../../lib/payments/midtrans";
+} from "../../../../../lib/payments/midtrans";
 
 /**
  * POST /api/payments/midtrans/webhook — terima notifikasi status dari Midtrans.
@@ -46,10 +46,10 @@ export async function POST(req: Request) {
   }
 
   // NOTED: titik integrasi ke database-mu. Contoh:
-  //   if (isPaidStatus(notif.transaction_status)) await db.order.markPaid(notif.order_id);
+  //   if (isPaidStatus(notif.transaction_status, notif.fraud_status)) await db.order.markPaid(notif.order_id);
   //   else await db.order.syncStatus(notif.order_id, notif.transaction_status);
   // TODO pemilik project: ganti 2 baris contoh di atas dengan query aslimu.
-  const paid = isPaidStatus(notif.transaction_status);
+  const paid = isPaidStatus(notif.transaction_status, notif.fraud_status);
 
   return NextResponse.json({ ok: true, orderId: notif.order_id, paid });
 }

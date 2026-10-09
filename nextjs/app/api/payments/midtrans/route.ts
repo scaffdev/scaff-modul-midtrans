@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createSnapTransaction } from "../../../../../lib/payments/midtrans";
+import { createSnapTransaction } from "../../../../lib/payments/midtrans";
 
 /**
  * POST /api/payments/midtrans — buat transaksi Snap.

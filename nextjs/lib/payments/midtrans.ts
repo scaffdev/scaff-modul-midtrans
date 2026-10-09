@@ -89,6 +89,7 @@ export interface MidtransNotification {
   signature_key: string;
   transaction_status: string;
   payment_type?: string;
+  fraud_status?: string;
 }
 
 /**
@@ -107,8 +108,11 @@ export function verifyWebhookSignature(notif: MidtransNotification): boolean {
 }
 
 /** Status yang berarti uang SUDAH masuk (aman update order jadi lunas). */
-export function isPaidStatus(status: string): boolean {
-  // NOTED: "capture" = kartu kredit (cek fraud_status == "accept" bila
-  // diaktifkan), "settlement" = semua metode lain yang sudah lunas.
-  return status === "settlement" || status === "capture";
+export function isPaidStatus(status: string, fraudStatus?: string): boolean {
+  // NOTED: "settlement" = semua metode non-kartu yang sudah lunas.
+  if (status === "settlement") return true;
+  // NOTED: "capture" = kartu kredit — lunas HANYA bila fraud_status "accept".
+  // Tanpa fraud accept, transaksi butuh review/berisiko chargeback: JANGAN tandai lunas.
+  if (status === "capture") return fraudStatus === "accept";
+  return false;
 }

@@ -1,6 +1,7 @@
 {
   "kode": "midtrans",
   "version": "1.0.0",
+  "docsUrl": "https://docs.midtrans.com/docs/snap-snap-integration-guide",
   "frameworks": ["nextjs", "laravel"],
   "files": [
     { "src": "lib/payments/midtrans.ts", "dest": "lib/payments/midtrans.ts", "frameworks": ["nextjs"] },
@@ -12,7 +13,7 @@
   "dependencies": {
     "composer": { "midtrans/midtrans-php": "^2.0" }
   },
-  "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
+    "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY", "MIDTRANS_IS_PRODUCTION"],
   "setup": "SETUP-FRAGMENT.md",
   "removal": {
     "files": [
@@ -22,7 +23,7 @@
       "app/Services/MidtransService.php",
       "app/Http/Controllers/MidtransController.php"
     ],
-    "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY"],
+  "env": ["MIDTRANS_SERVER_KEY", "MIDTRANS_CLIENT_KEY", "MIDTRANS_IS_PRODUCTION"],
     "stepsFile": "REMOVE.md"
   },
   "conflicts": ["xendit", "duitku"]

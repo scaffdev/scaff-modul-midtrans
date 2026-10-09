@@ -53,7 +53,7 @@ class MidtransController extends Controller
         // NOTED: titik integrasi ke database-mu, contoh:
         //   Order::where('external_id', $notif->order_id)->update(['status' => ...]);
         // TODO pemilik project: ganti dengan query aslimu.
-        $paid = $this->midtrans->isPaid($notif->transaction_status);
+        $paid = $this->midtrans->isPaid($notif->transaction_status, $notif->fraud_status ?? null);
 
         return response()->json(['ok' => true, 'orderId' => $notif->order_id, 'paid' => $paid]);
     }

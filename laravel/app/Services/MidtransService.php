@@ -70,8 +70,11 @@ class MidtransService
         return hash('sha512', $raw) === ($notif->signature_key ?? null);
     }
 
-    public function isPaid(string $status): bool
+    public function isPaid(string $status, ?string $fraudStatus = null): bool
     {
-        return in_array($status, ['settlement', 'capture'], true);
+        if ($status === 'settlement') return true;
+        // "capture" = kartu kredit — lunas HANYA bila fraud_status "accept".
+        if ($status === 'capture') return $fraudStatus === 'accept';
+        return false;
     }
 }
