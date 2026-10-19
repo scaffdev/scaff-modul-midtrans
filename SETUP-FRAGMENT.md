@@ -77,8 +77,9 @@ MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxx
 ```php
 use App\Http\Controllers\MidtransController;
 
-Route::post('/api/payments/midtrans', [MidtransController::class, 'create']);
-Route::post('/api/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
+// routes/api.php otomatis berprefix /api — jangan tulis /api lagi di sini.
+Route::post('/payments/midtrans', [MidtransController::class, 'create']);
+Route::post('/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
 ```
 
 ### L4. Bersihkan config + coba

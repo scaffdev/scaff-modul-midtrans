@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
  * Controller Midtrans — disuntik Scaffdev Builder ke template Laravel.
  *
  * NOTED:
- * - Daftarkan route manual (mis. di routes/api.php):
- *     Route::post('/api/payments/midtrans', [MidtransController::class, 'create']);
- *     Route::post('/api/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
+ * - Daftarkan route manual (mis. di routes/api.php; prefix /api otomatis):
+ *     Route::post('/payments/midtrans', [MidtransController::class, 'create']);
+ *     Route::post('/payments/midtrans/webhook', [MidtransController::class, 'webhook']);
  * - Webhook WAJIB URL publik + verifikasi signature (lihat method webhook).
  */
 class MidtransController extends Controller
